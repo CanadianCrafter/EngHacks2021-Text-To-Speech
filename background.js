@@ -3,7 +3,6 @@ var lang = 'en';
 
 function setToggleStatus(status) {
     toggleStatus = status;
-    alert("toggle set to " + toggleStatus);
 }
 
 function getToggleStatus() {
@@ -41,8 +40,7 @@ requirejs(["axios"], function(axios) {
                 },
                 params: {
                     'api-version': '3.0',
-                    'from': 'en',
-                    'to': ['de', 'it']
+                    'to': ['en']
                 },
                 data: [{
                     'text': text
