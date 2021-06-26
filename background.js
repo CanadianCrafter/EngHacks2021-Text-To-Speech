@@ -1,5 +1,4 @@
 var toggleStatus = false;
-var lang = 'en';
 
 function setToggleStatus(status) {
     toggleStatus = status;
@@ -25,6 +24,7 @@ requirejs(["axios"], function(axios) {
         var endpoint = "https://api.cognitive.microsofttranslator.com";
         var clientTraceId = "114a8126-34ab-4439-a108-a60cfe39228c"
         var location = "global";
+        var lang = 'en';
     
         if (toggleStatus) {
             //translate to english first
@@ -40,7 +40,7 @@ requirejs(["axios"], function(axios) {
                 },
                 params: {
                     'api-version': '3.0',
-                    'to': ['en']
+                    'to': ['en'] //
                 },
                 data: [{
                     'text': text
