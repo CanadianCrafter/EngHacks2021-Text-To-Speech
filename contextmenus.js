@@ -21,10 +21,14 @@ chrome.runtime.onInstalled.addListener(function() {
 
 chrome.contextMenus.onClicked.addListener((info) => {
     var text = info.selectionText;
+    console.log("hello");
 
     if (toggleStatus) {
         //translate to english first
-
+        fetch('https://jsonplaceholder.typicode.com/todos/1')
+            .then(response => response.json())
+            .then(data => console.log(data));
+       
         chrome.tts.speak(text); //default is english
     } else {
         //detect current language
