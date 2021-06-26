@@ -25,25 +25,10 @@ requirejs(["axios"], function(axios) {
         var subscriptionKey = "4de7de4bb9b9468bad08b9b8b507ed99";
         var endpoint = "https://api.cognitive.microsofttranslator.com";
         var clientTraceId = "114a8126-34ab-4439-a108-a60cfe39228c"
-        // Add your location, also known as region. The default is global.
-        // This is required if using a Cognitive Services resource.
         var location = "global";
     
-       
-
-
-    
-    
         if (toggleStatus) {
-
             //translate to english first
-            var subscriptionKey = "4de7de4bb9b9468bad08b9b8b507ed99";
-            var endpoint = "https://api.cognitive.microsofttranslator.com";
-        
-            // Add your location, also known as region. The default is global.
-            // This is required if using a Cognitive Services resource.
-            var location = "global";
-        
             axios({
                 baseURL: endpoint,
                 url: '/translate',
@@ -52,7 +37,7 @@ requirejs(["axios"], function(axios) {
                     'Ocp-Apim-Subscription-Key': subscriptionKey,
                     'Ocp-Apim-Subscription-Region': location,
                     'Content-type': 'application/json',
-                    'X-ClientTraceId': "114a8126-34ab-4439-a108-a60cfe39228c"
+                    'X-ClientTraceId': clientTraceId
                 },
                 params: {
                     'api-version': '3.0',
@@ -95,7 +80,7 @@ requirejs(["axios"], function(axios) {
                 var obj = JSON.parse(results);
                 console.log(obj[0].language)
                 lang = obj[0].language.substring(0,2);
-                chrome.tts.speak(text, {'lang': lang}); //may need to specify current language
+                chrome.tts.speak(text, {'lang': lang}); //specify current language
             })
         }  
     });
