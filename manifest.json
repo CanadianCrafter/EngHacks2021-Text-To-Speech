@@ -19,7 +19,6 @@
     },
 
     "background": {
-        "page": "contextmenus.html",
-        "persistent": true
+        "page": "contextmenus.html"
     }
 }
