@@ -9,8 +9,6 @@ function getToggleStatus() {
     return toggleStatus;
 }
 
-export {setToggleStatus, getToggleStatus};
-
 chrome.runtime.onInstalled.addListener(function() {
     chrome.contextMenus.create({
         "title": 'Speak',
@@ -24,7 +22,7 @@ chrome.contextMenus.onClicked.addListener((info) => {
 
     if (toggleStatus) {
         //translate to english first
-
+        
         chrome.tts.speak(text); //default is english
     } else {
         //detect current language

@@ -1,16 +1,16 @@
-import {setToggleStatus, getToggleStatus} from "./contextmenus.js";
-
-window.onload = function () {
+document.addEventListener('DOMContentLoaded', function() {
     var toggle = document.getElementById("toggle");
-    toggle.checked = getToggleStatus();
+    var bgpage = chrome.extension.getBackgroundPage();
+
+    toggle.checked = bgpage.getToggleStatus();
 
     toggle.addEventListener('change', function() {
         if (this.checked) {
             console.log("toggle on");
-            setToggleStatus(true);
+            bgpage.setToggleStatus(true);
         } else {
             console.log("toggle off");
-            setToggleStatus(false);
+            bgpage.setToggleStatus(false);
         }
     });
-}
+});
