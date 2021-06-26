@@ -29,31 +29,7 @@ requirejs(["axios"], function(axios) {
         // This is required if using a Cognitive Services resource.
         var location = "global";
     
-        axios({
-            baseURL: endpoint,
-            url: '/detect',
-            method: 'post',
-            headers: {
-                'Ocp-Apim-Subscription-Key': subscriptionKey,
-                'Ocp-Apim-Subscription-Region': location,
-                'Content-type': 'application/json',
-                'X-ClientTraceId': clientTraceId
-            },
-            params: {
-                'api-version': '3.0'
-            },
-            data: [{
-                'text': text
-            }],
-            responseType: 'json'
-        }).then(function(response){
-            var results = JSON.stringify(response.data, null, 4);
-            console.log(results)
-            var obj = JSON.parse(results);
-            console.log(obj[0].language)
-            lang = obj[0].language.substring(0,2);
-            chrome.tts.speak(text, {'lang': lang}); //may need to specify current language
-        })
+       
 
 
     
@@ -64,8 +40,31 @@ requirejs(["axios"], function(axios) {
             chrome.tts.speak(text); //default is english
         } else {
             //detect current language
-            // console.log(lang);
-            // chrome.tts.speak(text, {'lang': lang}); //may need to specify current language
+            axios({
+                baseURL: endpoint,
+                url: '/detect',
+                method: 'post',
+                headers: {
+                    'Ocp-Apim-Subscription-Key': subscriptionKey,
+                    'Ocp-Apim-Subscription-Region': location,
+                    'Content-type': 'application/json',
+                    'X-ClientTraceId': clientTraceId
+                },
+                params: {
+                    'api-version': '3.0'
+                },
+                data: [{
+                    'text': text
+                }],
+                responseType: 'json'
+            }).then(function(response){
+                var results = JSON.stringify(response.data, null, 4);
+                console.log(results)
+                var obj = JSON.parse(results);
+                console.log(obj[0].language)
+                lang = obj[0].language.substring(0,2);
+                chrome.tts.speak(text, {'lang': lang}); //may need to specify current language
+            })
         }  
     });
 });
