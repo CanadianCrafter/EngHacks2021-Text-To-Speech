@@ -1,15 +1,24 @@
 {
     "manifest_version": 2,
   
-    "name": "GTmetrix Analyzer Plugin",
-    "description": "This extension will analyze a page using GTmetrix",
+    "name": "Text to Speech Translator Plugin",
+	"permissions": [
+    "contextMenus", 
+	"tts"
+    ],
+    "description": "This extension will (currently only) speak your highlighted text back at you!",
     "version": "1.0",
   
     "browser_action": {
      "default_icon": "icon.png",
      "default_popup": "popup.html"
     },
-    "permissions": [
-     "activeTab"
-     ]
-  }
+
+    "icons": {
+        "16": "icon.png"
+    },
+
+    "background": {
+        "scripts": ["popup.js"]
+    }
+}
