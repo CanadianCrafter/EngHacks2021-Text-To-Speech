@@ -1,11 +1,16 @@
-document.addEventListener('DOMContentLoaded', function() {
-    chrome.contextMenus.create({
-        "title": 'Speak',
-        "contexts": ["selection"],
-        "id": "myid",
-    });
-});
+import {setToggleStatus, getToggleStatus} from "./contextmenus.js";
 
-chrome.contextMenus.onClicked.addListener((info) => {
-    chrome.tts.speak(info.selectionText);
-})
+window.onload = function () {
+    var toggle = document.getElementById("toggle");
+    toggle.checked = getToggleStatus();
+
+    toggle.addEventListener('change', function() {
+        if (this.checked) {
+            console.log("toggle on");
+            setToggleStatus(true);
+        } else {
+            console.log("toggle off");
+            setToggleStatus(false);
+        }
+    });
+}

@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
   
-    "name": "Text to Speech Translator Plugin",
+    "name": "Text to Speech Highlighter Plugin",
 	"permissions": [
     "contextMenus", 
 	"tts"
@@ -19,6 +19,7 @@
     },
 
     "background": {
-        "scripts": ["popup.js"]
+        "page": "contextmenus.html",
+        "persistent": true
     }
 }
