@@ -15,7 +15,7 @@ chrome.runtime.onInstalled.addListener(function() {
     chrome.contextMenus.create({
         "title": 'Speak',
         "contexts": ["selection"],
-        "id": "myid",
+        "id": "myid"
     });
 });
 
