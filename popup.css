@@ -1,8 +1,9 @@
 .switch {
     position: relative;
-    display: inline-block;
+    display: block;
     width: 60px;
     height: 34px;
+    margin: auto;
 }
 
 .switch input { /* hides default html checkbox */
@@ -56,4 +57,8 @@ input:checked + .slider:before {
   
 .slider.round:before {
     border-radius: 50%;
+}
+
+H2 {
+    text-align: center;
 }
