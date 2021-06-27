@@ -1,4 +1,4 @@
-### Making the web more accessible
+### Making The Web More Accessible
 
 ## Inspiration
 **Our inspiration came from one of our members who could speak, but not read Chinese.** He was trying to learn, but reading a Chinese website was always a pain. Having text to speech in another tab was simply too cumbersome when every few words were new, nor would it be beneficial to his learning to copy it all at once. Thus we decided to make a chrome extension to make the process simpler and faster.
