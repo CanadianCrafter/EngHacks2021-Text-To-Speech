@@ -2,7 +2,7 @@
 This program was made for EngHacks 2021.
 
 ## Inspiration
-Our inspiration from one of our members who was could speak Chinese but could not read it, so it was always a hassle when reading a Chinese website. Google Translate wasn't always accurate, nor would it help him learn the language. It was simply too cumbersome to copy every other word to another tab to read, so we decided to make a chrome extension to make the process simpler and faster.
+Our inspiration came from one of our members who was could speak Chinese but could not read it, so it was always a hassle when reading a Chinese website. Google Translate wasn't always accurate, nor would it help him learn the language. It was simply too cumbersome to copy every other word to another tab to read, so we decided to make a chrome extension to make the process simpler and faster.
 
 Quickly we realized that this project would not only be beneficial to the many of those who are spending their quarantines devoted to learning a new language (and those who would do the same in the future), having accessibility in text to speech in from and to any language especially on any website would also greatly benefit our illiterate or dyslexic minority, which may be small but definitely not to be neglected. In the future if we have this finished in development, we hope to do something similar to putting it onto the app store and that our project will be able to reach at least someone who would benefit greatly from it.
 
