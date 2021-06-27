@@ -6,7 +6,7 @@
     "contextMenus", 
 	"tts"
     ],
-    "description": "This extension will translate + speak your highlighted text to you!",
+    "description": "Highlight and right click text to translate/voice!",
     "version": "1.0",
   
     "browser_action": {

@@ -50,7 +50,7 @@ requirejs(["axios"], function(axios) {
             }).then(function(response){
                 //console.log(JSON.stringify(response.data, null, 4));
                 console.log(response.data[0]["translations"][0]["text"]);
-                chrome.tts.speak(response.data[0]["translations"][0]["text"]); //default is english
+                chrome.tts.speak(response.data[0]["translations"][0]["text"], {'lang': navigator.language.substring(0, 2)}); //default is english
             })
             
         } else {
