@@ -40,7 +40,7 @@ requirejs(["axios"], function(axios) {
                 },
                 params: {
                     'api-version': '3.0',
-                    'to': ['en'] //
+                    'to': [navigator.language.substring(0, 2)]
                 },
                 data: [{
                     'text': text
