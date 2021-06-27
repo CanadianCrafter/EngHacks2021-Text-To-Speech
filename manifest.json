@@ -6,7 +6,7 @@
     "contextMenus", 
 	"tts"
     ],
-    "description": "This extension will (currently only) speak your highlighted text back at you!",
+    "description": "This extension will translate + speak your highlighted text to you!",
     "version": "1.0",
   
     "browser_action": {
