@@ -1,19 +1,27 @@
+#Making the web more accessible
+
 ## Inspiration
-Our inspiration from one of our members who was could speak Chinese but could not read it, so it was always a hassle when reading a Chinese website. Google Translate wasn't always accurate, nor would it help him learn the language. It was simply too cumbersome to copy every other word to another tab to read, so we decided to make a chrome extension to make the process simpler and faster.
+**Our inspiration came from one of our members who could speak, but not read Chinese.** He was trying to learn, but reading a Chinese website was always a pain. Having text to speech in another tab was simply too cumbersome when every few words were new, nor would it be beneficial to his learning to copy it all at once. Thus we decided to make a chrome extension to make the process simpler and faster.
 
-Quickly we realized that this project would not only be beneficial to the many of those who are spending their quarantines learning a new language (and those who would do so in the future), having **accessibility** in **text to speech in from and to any language** especially on any website would also greatly **benefit our illiterate or dyslexic minority**. In the future if we have this finished in development, we hope to do something similar to putting it onto the app store and to make more platforms more accessible.
+This project would also be beneficial to hobbyists learning a new language (and those who would do so in the future), or for international students. Having **accessibility** in **text to speech from and to any language** especially on any website would also greatly **benefit our illiterate or dyslexic minority**. 
+
 ## What it does
-Transpeak is a Google Chrome extension that adds an option to the right click menu. On any website, **highlight text and have chrome.tts read it back to you in that language** with just two clicks! But that's not all, if you turn on a toggle, the extension will **automatically detect your most preferred browser language** (can be configured in Chrome settings, will be the first language listed) and **translate your highlighted text into that language before reading it to you**.
-## How we built it
-We first started with using a quick guide for Chrome Extensions to set up a skeleton for our Chrome Extension. Then we used Chrome's ContextMenus API and some form-based *HTML/JavaScript/CSS* for the GUI of the extension popup window. Finally, putting this together with *Azure Microsoft Translation and Language Detection API* gives us our current project.
-## Challenges we ran into
-The extension popup window disappears as fast as it appears, so we needed a *background.js* file to keep track of the toggle and dropdown inputs/states (since we wouldn't want the user to input these every time they want to translate/have something spoken to them). Communication between this popup and the background files was troublesome to set up and get working, needed to reference official documentation and examples very often. As for the project itself, we all weren't very well versed in JavaScript especially project setup with manifest files, giving us a slow development process and lots of headache-inducing (but in retrospect, simple) bugs. We also had a lot of trouble getting the *Azure Microsoft API* calls working in *JavaScript* (so much that we even implemented a working *Python* version), but eventually figured it out. 
-## Accomplishments that we're proud of
-**Creating a needed functional project**, since a working, fully integrated project on one platform wasn't too common for some of our members in previous hackathons. We were pretty organized despite all the bugs we ran into, and everyone was in the loop, aka knowing what they were doing at basically every time. We didn't lose any sleep for this hackathon (pog!!), but perhaps that's just a sign that we haven't set our sights high enough.
-## What we learned
-Using apis! One of us learned *JavaScript* from scratch and got certification for it, which just shows how much technical knowledge we had going into this hackathon, despite some of our group members having already participated in several previous hackathons. Pixel art was also a first for us, not to brag but our first attempt at pixel art doesn't look too shabby (check out the thumbnail!).
-## What's next for Transpeak
-Continuing our project, the consensus is that we would most likely focus on getting it onto different platforms instead of implementing new features. One feature we did consider was **adding a dropdown menu** that lets the user some choose which language they want to translate their highlighted text in, and not their detected preferred language, which could potentially provide our new-language-learners with some flexibility. **Publishing on the *Android/IOS app***store would increase the number of people we could get this app out to, which is the best thing we could hope and ask for. 
+Transpeak is a free Google Chrome Extension that reads the text you highlight or its translation. Select the text, right-click it, and select the "Speak" option. With just two clicks, it's simple and quick to use! You can also press the extension for it to translate your highlighted text into your preferred language before reading it.
 
-We are currently working on putting this extension onto the Chrome store (check updates for any news if you want to try it out, eta sometime early next week!).
+## How we built it
+After learning how to make a Chrome Extension, we used Chrome's ContextMenus and Text-To-Speech API and some form-based *HTML/JavaScript/CSS* to make the GUI and the background processes. We also used *Azure Microsoft's Translation and Language Detection API* to make the extension more streamlined.
+
+## Challenges we ran into
+Communication between the extension popup window and the background files was troublesome to set up and get working. In addition, we all weren't very well versed in *JavaScript* especially project setup with manifest files, giving us a slow development process and lots of bugs. Furthermore, we also had a **lot of trouble getting the Azure Microsoft API calls working** in *JavaScript* (so much that we even implemented a working *Python* version), but eventually figured it out. Definitely a learning experience for all of us.
+
+## Accomplishments that we're proud of
+**Creating a useful and functional project**, since a working, fully integrated project on one platform wasn't too common for some of our members in previous hackathons. We were pretty organized despite all the bugs we ran into, and everyone was in the loop. We didn't lose too much sleep for this hackathon (pog!!), but perhaps that's just a sign that we haven't set our sights high enough.
+
+## What we learned
+Using APIs! One of us **learned *JavaScript* from scratch** and got certification for it, which just shows how much technical knowledge we had going into this hackathon. **Pixel art** was also a first for us, not to brag but our first attempt at pixel art doesn't look too shabby (check out the thumbnail!).
+
+## What's next for Transpeak
+We want to get Transpeak onto different platforms, such as **Android and IOS**, as well as other browsers. One feature we want to add is a **dropdown menu** so users have the option to choose which language they want to translate to, and rather than automatically translating to their preferred language. This would provide new-language learners with added flexibility. 
+
+We are currently working on putting this extension onto the **Chrome store** (check updates for any news if you want to try it out, eta sometime early next week!).
 
