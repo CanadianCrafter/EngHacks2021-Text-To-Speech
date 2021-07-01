@@ -27,5 +27,7 @@ We want to get Transpeak onto different platforms, such as **Android and IOS**, 
 We are currently working on putting this extension onto the **Chrome store** (check updates for any news if you want to try it out, eta sometime early next week!).
 
 ## Links
-[Devpost](https://devpost.com/software/text-to-speech-highlighter)
-[Slides](https://docs.google.com/presentation/d/1xBOzkvjuc72VeCTfqkIXZDP9x476sVQhwCIrQ_kx0R8/edit?usp=sharing)
+[Devpost](https://devpost.com/software/text-to-speech-highlighter)  
+[Powerpoint](https://docs.google.com/presentation/d/1xBOzkvjuc72VeCTfqkIXZDP9x476sVQhwCIrQ_kx0R8/edit?usp=sharing)  
+[YouTube](https://youtu.be/1vMEvlPQPIE)
+
