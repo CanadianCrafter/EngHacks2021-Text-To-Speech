@@ -1,4 +1,8 @@
 var toggleStatus = false;
+var prevText ="";
+var prevPrevText ="";
+var sameTextNumber = 1;
+var speechRate = 0.6;
 
 function setToggleStatus(status) {
     toggleStatus = status;
@@ -19,6 +23,14 @@ chrome.runtime.onInstalled.addListener(function() {
 requirejs(["axios"], function(axios) {
     chrome.contextMenus.onClicked.addListener((info) => {
         var text = info.selectionText;
+        prevPrevText = prevText;
+        prevText = text;
+        if(prevText==prevPrevText){
+            sameTextNumber++;
+        }
+        else{
+            sameTextNumber=1;
+        }
     
         var subscriptionKey = "4de7de4bb9b9468bad08b9b8b507ed99";
         var endpoint = "https://api.cognitive.microsofttranslator.com";
@@ -50,7 +62,12 @@ requirejs(["axios"], function(axios) {
             }).then(function(response){
                 //console.log(JSON.stringify(response.data, null, 4));
                 console.log(response.data[0]["translations"][0]["text"]);
-                chrome.tts.speak(response.data[0]["translations"][0]["text"], {'lang': navigator.language.substring(0, 2)}); //default is english
+                if(sameTextNumber%2!=0){
+                    chrome.tts.speak(response.data[0]["translations"][0]["text"], {'lang': navigator.language.substring(0, 2)}); //default is english
+                }
+                else{
+                    chrome.tts.speak(response.data[0]["translations"][0]["text"], {'lang': navigator.language.substring(0, 2),'rate':speechRate}); //60% speed
+                }
             })
             
         } else {
@@ -78,7 +95,12 @@ requirejs(["axios"], function(axios) {
                 var obj = JSON.parse(results);
                 console.log(obj[0].language)
                 lang = obj[0].language.substring(0,2);
-                chrome.tts.speak(text, {'lang': lang}); //specify current language
+                if(sameTextNumber%2!=0){
+                    chrome.tts.speak(text, {'lang': lang}); //specify current language
+                }
+                else{
+                    chrome.tts.speak(text, {'lang': lang,'rate':speechRate}); //60% speed
+                }
             })
         }  
     });
