@@ -1,15 +1,24 @@
-var toggleStatus = false;
+var translateStatus = false;
+var yueStatus = false;
 var prevText ="";
 var prevPrevText ="";
 var sameTextNumber = 1;
 var speechRate = 0.6;
 
-function setToggleStatus(status) {
-    toggleStatus = status;
+function setTranslateStatus(status) {
+    translateStatus = status;
 }
 
-function getToggleStatus() {
-    return toggleStatus;
+function getTranslateStatus() {
+    return translateStatus;
+}
+
+function setYueStatus(status) {
+    yueStatus = status;
+}
+
+function getYueStatus() {
+    return yueStatus;
 }
 
 chrome.runtime.onInstalled.addListener(function() {
@@ -38,7 +47,7 @@ requirejs(["axios"], function(axios) {
         var location = "global";
         var lang = 'en';
     
-        if (toggleStatus) {
+        if (translateStatus) {
             //translate to english first
             axios({
                 baseURL: endpoint,
@@ -62,11 +71,17 @@ requirejs(["axios"], function(axios) {
             }).then(function(response){
                 //console.log(JSON.stringify(response.data, null, 4));
                 console.log(response.data[0]["translations"][0]["text"]);
+                console.log(navigator.language);
+                
+                lang = navigator.language.substring(0, 2)
+                
+                if(lang=="zh"&&yueStatus) lang='zh-hk'; //switches to yue
+
                 if(sameTextNumber%2!=0){
-                    chrome.tts.speak(response.data[0]["translations"][0]["text"], {'lang': navigator.language.substring(0, 2)}); //default is english
+                    chrome.tts.speak(response.data[0]["translations"][0]["text"], {'lang': lang}); //default is english
                 }
                 else{
-                    chrome.tts.speak(response.data[0]["translations"][0]["text"], {'lang': navigator.language.substring(0, 2),'rate':speechRate}); //60% speed
+                    chrome.tts.speak(response.data[0]["translations"][0]["text"], {'lang': lang,'rate':speechRate}); //60% speed
                 }
             })
             
@@ -95,8 +110,12 @@ requirejs(["axios"], function(axios) {
                 var obj = JSON.parse(results);
                 console.log(obj[0].language)
                 lang = obj[0].language.substring(0,2);
+                if(lang=="zh"&&yueStatus) lang='zh-hk'; //switches to yue
+ 
+
                 if(sameTextNumber%2!=0){
                     chrome.tts.speak(text, {'lang': lang}); //specify current language
+
                 }
                 else{
                     chrome.tts.speak(text, {'lang': lang,'rate':speechRate}); //60% speed
