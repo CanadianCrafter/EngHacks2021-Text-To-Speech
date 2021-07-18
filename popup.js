@@ -1,16 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var toggle = document.getElementById("toggle");
+    var translateToggle = document.getElementById("translateToggle");
+    var yueToggle = document.getElementById("yueToggle");
     var bgpage = chrome.extension.getBackgroundPage();
 
-    toggle.checked = bgpage.getToggleStatus();
+    translateToggle.checked = bgpage.getTranslateStatus();
 
-    toggle.addEventListener('change', function() {
+    translateToggle.addEventListener('change', function() {
         if (this.checked) {
-            console.log("toggle on");
-            bgpage.setToggleStatus(true);
+            console.log("toggle on translate");
+            bgpage.setTranslateStatus(true);
         } else {
-            console.log("toggle off");
-            bgpage.setToggleStatus(false);
+            console.log("toggle off translate");
+            bgpage.setTranslateStatus(false);
+        }
+    });
+
+    yueToggle.checked = bgpage.getYueStatus();
+
+    yueToggle.addEventListener('change', function() {
+        if (this.checked) {
+            console.log("toggle on yue");
+            bgpage.setYueStatus(true);
+        } else {
+            console.log("toggle off yue");
+            bgpage.setYueStatus(false);
         }
     });
 });
