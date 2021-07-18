@@ -62,3 +62,7 @@ input:checked + .slider:before {
 H2 {
     text-align: center;
 }
+
+H3 {
+    text-align: center;
+}
