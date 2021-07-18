@@ -17,9 +17,9 @@ We are currently working on adding more flexibility to the user's speech and tra
 
 
 ## Links
-[Download for Chrome](https://chrome.google.com/webstore/detail/difkgogalighjoffonmipncaobobgnoj?authuser=4&hl=en)
-[YouTube](https://youtu.be/1vMEvlPQPIE)
-[BiliBili](https://www.bilibili.com/video/BV1EM4y1M7hA)
+[Download for Chrome](https://chrome.google.com/webstore/detail/difkgogalighjoffonmipncaobobgnoj?authuser=4&hl=en)  
+[YouTube](https://youtu.be/1vMEvlPQPIE)  
+[BiliBili](https://www.bilibili.com/video/BV1EM4y1M7hA)  
 
 ### Hackathon Related
 [Devpost](https://devpost.com/software/text-to-speech-highlighter)  
