@@ -23,7 +23,6 @@ var lang = 'en';
 var sampleText = "";
 var translatedText = "";
 var prefLang = "";
-var repeatText = false;
 
 //API Stuff
 var subscriptionKey = "4de7de4bb9b9468bad08b9b8b507ed99";
@@ -43,7 +42,6 @@ requirejs(["axios"], function(axios) {
         else{
             sameTextNumber=1;
         }
-        repeatText = text==prevText;
         prevText = text;
 
         var subscriptionKey = "4de7de4bb9b9468bad08b9b8b507ed99";
@@ -121,8 +119,8 @@ requirejs(["axios"], function(axios) {
     });
 });
 
-//Modifys language region based on dialect selection
-function dialectModifyer(lang){
+//Modifies language region based on dialect selection
+function dialectModifier(lang){
     if(lang=="zh"&&yueStatus) return 'zh-hk'; //switches to yue
 
     else return lang;
@@ -130,7 +128,7 @@ function dialectModifyer(lang){
 
 //Speaks the text in the language and speed required.
 function speak(text, lang){
-    lang=dialectModifyer(lang);
+    lang=dialectModifier(lang);
    
     if(sameTextNumber%2!=0){
         chrome.tts.speak(text, {'lang': lang}); //specify current language
