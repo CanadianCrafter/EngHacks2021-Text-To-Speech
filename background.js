@@ -24,13 +24,6 @@ var sampleText = "";
 var translatedText = "";
 var prefLang = "";
 
-//API Stuff
-var subscriptionKey = "4de7de4bb9b9468bad08b9b8b507ed99";
-var endpoint = "https://api.cognitive.microsofttranslator.com";
-var clientTraceId = "114a8126-34ab-4439-a108-a60cfe39228c"
-var location = "global";
-
-
 requirejs(["axios"], function(axios) {
     chrome.contextMenus.onClicked.addListener((info) => {
         text = info.selectionText;
