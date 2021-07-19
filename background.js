@@ -4,6 +4,7 @@ var prevText ="";
 var prevPrevText ="";
 var sameTextNumber = 1;
 var speechRate = 0.6;
+var languageSampleSize = 50;
 
 function setTranslateStatus(status) {
     translateStatus = status;
@@ -87,6 +88,10 @@ requirejs(["axios"], function(axios) {
             
         } else {
             //detect current language
+            var sampleText = text;
+            if(text.length>languageSampleSize){
+                sampleText = text.substring(0, languageSampleSize);
+            }
             axios({
                 baseURL: endpoint,
                 url: '/detect',
@@ -101,7 +106,7 @@ requirejs(["axios"], function(axios) {
                     'api-version': '3.0'
                 },
                 data: [{
-                    'text': text
+                    'text': sampleText
                 }],
                 responseType: 'json'
             }).then(function(response){
