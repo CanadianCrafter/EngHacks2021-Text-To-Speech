@@ -37,7 +37,7 @@ requirejs(["axios"], function(axios) {
         }
         prevText = text;
 
-        var subscriptionKey = "4de7de4bb9b9468bad08b9b8b507ed99";
+        var subscriptionKey = "fb1c6a512cbc47ac9116f0ec59154136";
         var endpoint = "https://api.cognitive.microsofttranslator.com";
         var clientTraceId = "114a8126-34ab-4439-a108-a60cfe39228c"
         var location = "global";
