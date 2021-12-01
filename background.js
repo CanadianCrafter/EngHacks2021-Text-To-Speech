@@ -7,6 +7,17 @@ chrome.runtime.onInstalled.addListener(function() {
     });
 });
 
+//Add Chrome tab onRemoved listener
+chrome.tabs.onRemoved.addListener(function(tabid, removed) {
+    //If a tab is closed while the tts is speaking, stop it.
+    //(This should be fixed so only if the tab with the text is closed, does speech stop)
+    if(chrome.tts.isSpeaking()){
+        chrome.tts.stop()
+        console.log("Speech Stopped")
+    }
+    console.log("Tab Removed")
+})
+
 // toggles
 var translateStatus = false;
 var yueStatus = false;
@@ -14,7 +25,7 @@ var yueStatus = false;
 //System settings
 var sameTextNumber = 1; //number of consequtive times a piece of text is voiced
 var slowSpeechRate = 0.6; //speech rate on even numbered clicks
-var languageSampleSize = 50; //maximum size of text sampled for language detection
+var languageSampleSize = 100; //maximum size of text sampled for language detection
 
 //System variables
 var prevText = "";
@@ -125,9 +136,32 @@ function speak(text, lang){
    
     if(sameTextNumber%2!=0){
         chrome.tts.speak(text, {'lang': lang}); //specify current language
+        chrome.tts.speak(
+            text,
+            {
+              onEvent: function(event) {
+                console.log('Event ' + event.type + ' at position ' + event.charIndex);
+                if (event.type == 'error') {
+                  console.log('Error: ' + event.errorMessage);
+                }
+              },
+              'lang': lang, //specify current language
+            },
+          );
     }
     else{
-        chrome.tts.speak(text, {'lang': lang,'rate':slowSpeechRate}); //60% speed
+        chrome.tts.speak(
+            text,
+            {
+              onEvent: function(event) {
+                console.log('Event ' + event.type + ' at position ' + event.charIndex);
+                if (event.type == 'error') {
+                  console.log('Error: ' + event.errorMessage);
+                }
+              },
+              'lang': lang,'rate':slowSpeechRate //60% speed
+            },
+          );
     }
 
     //logs
