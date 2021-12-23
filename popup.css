@@ -66,3 +66,22 @@ H2 {
 H3 {
     text-align: center;
 }
+
+.button {
+    background-color: white;
+    color: #ccc;
+    border: 2px solid #ccc;
+    transition-duration: 0.4s;
+
+    font-size: small;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #ccc;
+    color:white;
+}
+
+#spacing {
+    padding-top:15px;
+}

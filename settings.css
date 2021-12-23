@@ -1,0 +1,27 @@
+.button {
+    background-color: white;
+    color: #2196F3;
+    border: 2px solid #2196F3;
+    transition-duration: 0.4s;
+
+    font-size: small;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #2196F3;
+    color:white;
+}
+
+.savedButton {
+    background-color: white;
+    color: #ccc;
+    border: 2px solid #ccc;
+
+    font-size: small;
+    font-weight: bold;
+}
+
+#spacing {
+    padding-top:15px;
+}
