@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         saved = false;
     });
 
-    document.getElementById("ttsLang").addEventListener("click", function () {
+    document.getElementById("ttsSpeed").addEventListener("click", function () {
         //reset save button
         var saveButton = document.getElementById("save");
         saveButton.className = "button";

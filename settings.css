@@ -2,6 +2,7 @@
     background-color: white;
     color: #2196F3;
     border: 2px solid #2196F3;
+    border-radius: 2px;
     transition-duration: 0.4s;
 
     font-size: small;
@@ -17,6 +18,7 @@
     background-color: white;
     color: #ccc;
     border: 2px solid #ccc;
+    border-radius: 2px;
 
     font-size: small;
     font-weight: bold;
@@ -24,4 +26,41 @@
 
 #spacing {
     padding-top:15px;
+}
+#spacing2 {
+    padding-top:30px;
+}
+
+html {
+    background-color: rgb(238, 238, 238)
+}
+
+.container {
+    height: 300px;
+    width: 600px;
+    background: white;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(204, 204, 204);
+    border-radius: 5px;
+
+    position: fixed;
+    display:block;
+    top: 20%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -300px;
+
+    box-sizing: border-box;
+    padding: 40px;
+}
+
+.banner{
+    position: absolute;
+    left: 50%;
+    margin-left: -175px;
+}
+
+.center{
+    text-align: center;
 }
