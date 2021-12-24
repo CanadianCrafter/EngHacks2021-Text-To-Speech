@@ -11,11 +11,13 @@ chrome.runtime.onInstalled.addListener(function() {
 var translateStatus = false;
 
 //System settings
-var sameTextNumber = 1; //number of consequtive times a piece of text is voiced
 var languageSampleSize = 50; //maximum size of text sampled for language detection
+var slowSpeechRate = 0.5; //How much speech is slowed down by on even numbered clicks
 
 //System variables
 var text = "";
+var prevText = "";
+var isRepeat = false;
 var ttsLang = "en-US";
 var ttsSpeed = 1;
 var sampleText = "";
@@ -115,8 +117,30 @@ requirejs(["axios"], function(axios) {
 
 //Speaks the text in the language and speed required.
 function speak(text, lang){
+    if(text==prevText){
+        isRepeat = !isRepeat;
+    }
+    else{
+        isRepeat = false;
+    }
+
     //alert("speaking in lang " + lang + " and speed " + ttsSpeed);
-    chrome.tts.speak(text, {'lang': lang, 'rate': ttsSpeed});
+    if(isRepeat){
+        chrome.tts.speak(text, {'lang': lang, 'rate': ttsSpeed*slowSpeechRate});
+    }
+    else{
+        chrome.tts.speak(text, {'lang': lang, 'rate': ttsSpeed});
+    }
+
+    prevText = text;
+
+    //logs
+    console.log(text);
+    console.log(lang);
+    console.log(isRepeat?"Slow":"Normal");
+    console.log(translateStatus?"Translate ON":"Translate OFF");
+    console.log("------------------");
+    
 }
 
 //Setters and Getters
