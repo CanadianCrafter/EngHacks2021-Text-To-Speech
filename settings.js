@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     var bgpage = chrome.extension.getBackgroundPage();
 
-    //set already selected from current
+    //set up page
     var ttsLangSelected = bgpage.getTTSLang();
     var ttsSpeedSelected = bgpage.getTTSSpeed();
     updateOptionMenus(ttsLangSelected,ttsSpeedSelected);
@@ -55,13 +55,15 @@ document.addEventListener('DOMContentLoaded', function() {
         
     });
 
-    document.getElementById("ttsLang").addEventListener("click", function () {
+    //When the language option menu is changed
+    document.getElementById("ttsLang").addEventListener("change", function () {
         resetSaveButton();
         updateResetButton();
 
     });
 
-    document.getElementById("ttsSpeed").addEventListener("click", function () {
+    //when the speed option menu is changed
+    document.getElementById("ttsSpeed").addEventListener("change", function () {
         resetSaveButton();
         updateResetButton();
 
@@ -83,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         saved = true;
     }
 
+    //returns true if the user is on default settings and false otherwise
     function isReset() {
         return (bgpage.getTTSLang()==navigator.language) && (bgpage.getTTSSpeed()==1);
     }   
