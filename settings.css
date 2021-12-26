@@ -1,4 +1,4 @@
-.button {
+.saveButton {
     background-color: white;
     color: #2196F3;
     border: 2px solid #2196F3;
@@ -9,12 +9,38 @@
     font-weight: bold;
 }
 
-.button:hover {
+.saveButton:hover {
     background-color: #2196F3;
     color:white;
 }
 
 .savedButton {
+    background-color: white;
+    color: #ccc;
+    border: 2px solid #ccc;
+    border-radius: 2px;
+
+    font-size: small;
+    font-weight: bold;
+}
+
+.resetButton {
+    background-color: white;
+    color: rgb(69, 69, 69);
+    border: 2px solid rgb(69, 69, 69);
+    border-radius: 2px;
+    transition-duration: 0.4s;
+
+    font-size: small;
+    font-weight: bold;
+}
+
+.resetButton:hover {
+    background-color: rgb(69, 69, 69);
+    color:white;
+}
+
+.resettedButton {
     background-color: white;
     color: #ccc;
     border: 2px solid #ccc;

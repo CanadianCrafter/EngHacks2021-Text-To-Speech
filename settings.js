@@ -3,22 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //set already selected from current
     var ttsLangSelected = bgpage.getTTSLang();
-    Array.from(document.querySelector("#ttsLang").options).forEach(function(option_element) {
-        var val = option_element.value;
-
-        if (val == ttsLangSelected) {
-            option_element.selected = true;
-        }
-    });
-
     var ttsSpeedSelected = bgpage.getTTSSpeed();
-    Array.from(document.querySelector("#ttsSpeed").options).forEach(function(option_element) {
-        var val = option_element.value;
-
-        if (val == ttsSpeedSelected) {
-            option_element.selected = true;
-        }
-    });
+    updateOptionMenus(ttsLangSelected,ttsSpeedSelected);
+    updateResetButton();
 
     var saved = false;
 
@@ -37,29 +24,102 @@ document.addEventListener('DOMContentLoaded', function() {
             bgpage.setTTSSpeed(parseFloat(ttsSpeed, 10));
             
             //update button
-            alert("translation lang set to " + bgpage.getTTSLang() + ", tts speed set to " + bgpage.getTTSSpeed());
+            console.log("translation lang set to " + bgpage.getTTSLang() + ", tts speed set to " + bgpage.getTTSSpeed());
+            alert("Translation language set to " + bgpage.getTTSLang() + ", speech speed set to " + bgpage.getTTSSpeed() + "x");
 
-            var saveButton = document.getElementById("save");
-            saveButton.className = "savedButton";
-            saveButton.innerHTML = "Saved!";
-            saved = true;
+            saveToSavedButton();
+            updateResetButton();
         }
     });
 
+    //reset button
+    document.getElementById("reset").addEventListener("click", function () {
+        if(!isReset()){
+            //Reset to browser language
+            bgpage.setTTSLang(navigator.language);
+        
+            //Reset to 1x speed
+            bgpage.setTTSSpeed(parseFloat(1, 10));
+            
+            //update button
+            console.log("translation lang reset to " + bgpage.getTTSLang() + ", tts speed reset to " + bgpage.getTTSSpeed());
+            alert("Translation language reset to " + bgpage.getTTSLang() + ", speech speed reset to " + bgpage.getTTSSpeed() + "x");
+        
+            var resetButton = document.getElementById("reset");
+            resetButton.className = "resettedButton";
+            resetButton.innerHTML = "Resetted!";
+
+            //Reset option menu
+            updateOptionMenus(navigator.language,1);
+        }
+        
+    });
+
     document.getElementById("ttsLang").addEventListener("click", function () {
-        //reset save button
-        var saveButton = document.getElementById("save");
-        saveButton.className = "button";
-        saveButton.innerHTML = "Save";
-        saved = false;
+        resetSaveButton();
+        updateResetButton();
+
     });
 
     document.getElementById("ttsSpeed").addEventListener("click", function () {
-        //reset save button
+        resetSaveButton();
+        updateResetButton();
+
+    });
+
+    //reset save button
+    function resetSaveButton() {
         var saveButton = document.getElementById("save");
-        saveButton.className = "button";
+        saveButton.className = "saveButton";
         saveButton.innerHTML = "Save";
         saved = false;
-    });
+    }
+
+    //change save button into saved button
+    function saveToSavedButton() {
+        var saveButton = document.getElementById("save");
+        saveButton.className = "savedButton";
+        saveButton.innerHTML = "Saved!";
+        saved = true;
+    }
+
+    function isReset() {
+        return (bgpage.getTTSLang()==navigator.language) && (bgpage.getTTSSpeed()==1);
+    }   
+
+    //update the reset button to resetted and vice versa
+    function updateResetButton() {
+        if(isReset()){
+            var resetButton = document.getElementById("reset");
+            resetButton.className = "resettedButton";
+            resetButton.innerHTML = "Already on Default Settings";
+        }
+        else{
+            var resetButton = document.getElementById("reset");
+            resetButton.className = "resetButton";
+            resetButton.innerHTML = "Reset";
+        }
+    }
+    
+    //update the option menus
+    function updateOptionMenus(lang, speed) {
+        Array.from(document.querySelector("#ttsLang").options).forEach(function(option_element) {
+            var val = option_element.value;
+    
+            if (val == lang) {
+                option_element.selected = true;
+            }
+        });
+    
+        Array.from(document.querySelector("#ttsSpeed").options).forEach(function(option_element) {
+            var val = option_element.value;
+    
+            if (val == speed) {
+                option_element.selected = true;
+            }
+        });
+    }
+
+
 });
 
