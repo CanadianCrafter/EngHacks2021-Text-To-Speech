@@ -6,14 +6,121 @@
   </head>
   <body>
     <div class="container">
-        <a class="banner"><img src="Option Menu Banner.png"/></a>
+        <img class="banner" src="Option Menu Banner.png"/>
 
         <div id="spacing2"></div>
 
         <div class="center"><h2 style="font-family: Arial;">Chrome Extension Options</h2></div>
+        
+        <h3 class="section">Language Detection Options (Toggle Off)</h3>
+        <h4>When the Translation toggle is off, the Text-To-Speech Highlighter detects the language of the
+            highlighted text then speaks it out to you in that language. The dialects below will be used if 
+            that language is detected:
+        </h4>
+
         <table>
             <tr>
-                <th><h3 style="font-family: Helvetica;">My Primary Language: </h3></th>
+                <th><p>Arabic: </p></th>
+                <th>
+                    <select name="arabicDialect" id="arabicDialect">
+                        <option value="ar-EG">Arabic (Egypt)</option>
+                        <option value="ar-JO">Arabic (Jordan)</option>
+                        <option value="ar-KW">Arabic (Kuwait)</option>
+                        <option value="ar-LB">Arabic (Lebanon)</option>
+                        <option value="ar-QA">Arabic (Qatar)</option>
+                        <option value="ar-AE">Arabic (UAE)</option>
+                        <option value="ar-MA">Arabic (Morocco)</option>
+                        <option value="ar-IQ">Arabic (Iraq)</option>
+                        <option value="ar-DZ">Arabic (Algeria)</option>
+                        <option value="ar-BH">Arabic (Bahrain)</option>
+                        <option value="ar-LY">Arabic (Lybia)</option>
+                        <option value="ar-OM">Arabic (Oman)</option>
+                        <option value="ar-SA">Arabic (Saudi Arabia)</option>
+                        <option value="ar-TN">Arabic (Tunisia)</option>
+                        <option value="ar-YE">Arabic (Yemen)</option>
+                    </select>
+                </th>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th><p>English: </p></th>
+                <th>
+                    <select name="englishDialect" id="englishDialect">
+                        <option value="en-AU">English (Australia)</option>
+                        <option value="en-CA">English (Canada)</option>
+                        <option value="en-IN">English (India)</option>
+                        <option value="en-NZ">English (New Zealand)</option>
+                        <option value="en-ZA">English (South Africa)</option>
+                        <option value="en-UK">English (UK)</option>
+                        <option value="en-US">English (US)</option>
+                    </select>
+                </th>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th><p>Chinese: </p></th>
+                <th>
+                    <select name="chineseDialect" id="chineseDialect">
+                        <option value="zh-CN">Mandarin Chinese</option>
+                        <option value="zh-TW">Traditional Taiwan</option>
+                        <option value="zh-HK">Cantonese/Yue</option>
+                    </select>
+                </th>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th><p>Portuguese: </p></th>
+                <th>
+                    <select name="portugueseDialect" id="portugueseDialect">
+                        <option value="pt-BR">Portuguese (Brazil)</option>
+                        <option value="pt-PT">Portuguese (Portugal)</option>
+                    </select>
+                </th>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th><p>Spanish: </p></th>
+                <th>
+                    <select name="spanishDialect" id="spanishDialect">
+                        <option value="es-AR">Spanish (Argentina)</option>
+                        <option value="es-BO">Spanish (Bolivia)</option>
+                        <option value="es-CL">Spanish (Chile)</option>
+                        <option value="es-CO">Spanish (Colombia)</option>
+                        <option value="es-CR">Spanish (Costa Rica)</option>
+                        <option value="es-DO">Spanish (Dominican Republic)</option>
+                        <option value="es-EC">Spanish (Ecuador)</option>
+                        <option value="es-SV">Spanish (El Salvador)</option>
+                        <option value="es-GT">Spanish (Guatemala)</option>
+                        <option value="es-HN">Spanish (Honduras)</option>
+                        <option value="es-MX">Spanish (Mexico)</option>
+                        <option value="es-NI">Spanish (Nicaragua)</option>
+                        <option value="es-PA">Spanish (Panama)</option>
+                        <option value="es-PY">Spanish (Paraguay)</option>
+                        <option value="es-PE">Spanish (Peru)</option>
+                        <option value="es-PR">Spanish (Puerto Rico)</option>
+                        <option value="es-ES">Spanish (Spain)</option>
+                        <option value="es-US">Spanish (US)</option>
+                        <option value="es-UY">Spanish (Uruguay)</option>
+                        <option value="es-VE">Spanish (Venezuela)</option>
+                    </select>
+                </th>
+            </tr>
+        </table>
+
+        <hr>
+
+        <h3 class="section">Translation Options (Toggle On)</h3>
+        <h4>When the Translation toggle is on, the Text-To-Speech Highlighter translates the highlighted 
+            text and speaks it out to you in your primary language:
+        </h4>
+        
+        <table>
+            <tr>
+                <th><p>My Primary Language: </p></th>
                 <th>
                     <select name="ttsLang" id="ttsLang">
                         <option value="browser">Browser Language (Default)</option>
@@ -92,10 +199,15 @@
                 </th>
             </tr>
         </table>
+        
+        <hr>
+
+        <h3 class="section">Other Options</h3>
+        <h4>Always applies, no matter if the toggle is on or off.</h4>
 
         <table>
             <tr>
-                <th><h3 style="font-family: Helvetica;">Speed: </h3></th>
+                <th><p>Text to Speech Speed: </p></th>
                 <th>
                     <select name="ttsSpeed" id="ttsSpeed">
                         <option value="0.25">0.25x</option>
@@ -109,7 +221,27 @@
                 </th>
             </tr>
         </table>
-    
+
+        <table>
+            <tr>
+                <th>
+                    <input type="checkbox" id="slowOnEven" name="slowOnEven" value="slow">
+                </th>
+                <th>
+                    <p>Slow on Even</p>
+                </th>
+                <th>
+                    <div class="tooltip">?
+                        <span class="tooltiptext">Upon the 2nd, 4th, 6th, ... repeats of the same highlighted text, 
+                            the text will be spoken out at 50% the speed chosen above
+                        </span>
+                    </div>
+
+                </th>
+            </tr>
+        </table>
+        
+
         <div id="spacing"></div>
     
         <button id="save" class="saveButton" type="button">Save</button>
