@@ -9,33 +9,30 @@ chrome.runtime.onInstalled.addListener(function() {
 
 // toggles
 var translateStatus = false;
-var yueStatus = false;
 
 //System settings
-var sameTextNumber = 1; //number of consequtive times a piece of text is voiced
-var slowSpeechRate = 0.6; //speech rate on even numbered clicks
 var languageSampleSize = 50; //maximum size of text sampled for language detection
+var slowSpeechRate = 0.5; //How much speech is slowed down by on even numbered clicks
+var slowOnEven = false;
 
 //System variables
-var prevText = "";
 var text = "";
-var lang = 'en';
+var prevText = "";
+var isRepeat = false;
+var ttsLang = navigator.language;
+var ttsSpeed = 1;
 var sampleText = "";
 var translatedText = "";
-var prefLang = "";
+
+var arabicDialect = "ar-EG";
+var englishDialect = "en-US";
+var chineseDialect = "zh-CN";
+var portugueseDialect = "pt-PT";
+var spanishDialect = "es-MX";
 
 requirejs(["axios"], function(axios) {
     chrome.contextMenus.onClicked.addListener((info) => {
         text = info.selectionText;
-
-        //save text
-        if(text==prevText){
-            sameTextNumber++;
-        }
-        else{
-            sameTextNumber=1;
-        }
-        prevText = text;
 
         var subscriptionKey = "618948c3ab734aa88ab09bc589375cdc";
         var endpoint = "https://api.cognitive.microsofttranslator.com";
@@ -47,7 +44,7 @@ requirejs(["axios"], function(axios) {
         if (!translateStatus) {            
             //gets sample text for language detection
             sampleText = text;
-            if(text.length>languageSampleSize){
+            if(text.length > languageSampleSize){
                 sampleText = text.substring(0, languageSampleSize);
             }
 
@@ -73,14 +70,31 @@ requirejs(["axios"], function(axios) {
                 
                 var results = JSON.stringify(response.data, null, 4);
                 var obj = JSON.parse(results);
-                lang = obj[0].language.substring(0,2); //takes the first two characters of the language id                
+                //lang = obj[0].language.substring(0,2); //takes the first two characters of the language id                
 
-                speak(text,lang);
+                //alert("detected languge: " + obj[0].language);
+                
+                speak(text, applyDialect(obj[0].language));
                
             })
             
             
         } else { //translate before speech
+            //for the most part, transLang from Azure is the first 2 characters of ttsLang from Chrome TTS.
+            //exceptions to this rule are handled below
+            transLang = ttsLang;
+            if (!ttsLang.includes("pt")) { //portuguese is an exception
+                transLang = ttsLang.substring(0, 2);
+
+                if (transLang == "zh") { //chinese is an exception
+                    transLang = "zh-Hans";
+                } else if (transLang == "no") { //norwegian is an exception
+                    transLang = "nb";
+                } else if (transLang == "sr") { //serbian is an exception
+                    transLang = "sr-Latn";
+                }
+            }
+            
             axios({
                 baseURL: endpoint,
                 url: '/translate',
@@ -93,7 +107,7 @@ requirejs(["axios"], function(axios) {
                 },
                 params: {
                     'api-version': '3.0',
-                    'to': [navigator.language.substring(0, 2)]
+                    'to': transLang
                 },
                 data: [{
                     'text': text
@@ -101,44 +115,59 @@ requirejs(["axios"], function(axios) {
                 responseType: 'json'
 
             }).then(function(response){
-                            
-                prefLang = navigator.language.substring(0, 2);
-                
                 translatedText = response.data[0]["translations"][0]["text"];
-
-                speak(translatedText,prefLang);
+                //alert("translated: " + translatedText);
+                speak(translatedText, ttsLang);
             })
         }  
     });
 });
 
-//Modifies language region based on dialect selection
-function dialectModifier(lang){
-    if(lang=="zh"&&yueStatus) return 'zh-hk'; //switches to yue
-
-    else return lang;
-}
-
 //Speaks the text in the language and speed required.
 function speak(text, lang){
-    lang=dialectModifier(lang);
-   
-    if(sameTextNumber%2!=0){
-        chrome.tts.speak(text, {'lang': lang}); //specify current language
+    if (slowOnEven) {
+        if (text == prevText) {
+            isRepeat = !isRepeat;
+        } else {
+            isRepeat = false;
+        }
+    
+        //alert("speaking in lang " + lang + " and speed " + ttsSpeed);
+        if (isRepeat) {
+            chrome.tts.speak(text, {'lang': lang, 'rate': ttsSpeed*slowSpeechRate});
+        } else {
+            chrome.tts.speak(text, {'lang': lang, 'rate': ttsSpeed});
+        }
+    } else {
+        isRepeat = false;
+        chrome.tts.speak(text, {'lang': lang, 'rate': ttsSpeed});
     }
-    else{
-        chrome.tts.speak(text, {'lang': lang,'rate':slowSpeechRate}); //60% speed
-    }
+    
+    prevText = text;
 
     //logs
     console.log(text);
     console.log(lang);
-    console.log(sameTextNumber%2!=0?"Normal":"Slow");
+    console.log(isRepeat?"Slow":"Normal");
     console.log(translateStatus?"Translate ON":"Translate OFF");
-    console.log(yueStatus?"Yue ON":"Yue OFF");
     console.log("------------------");
+    
+}
 
-    return;
+function applyDialect(lang) {
+    if (lang.substring(0, 2) == "ar") {
+        return arabicDialect;
+    } else if (lang.substring(0, 2) == "en") {
+        return englishDialect;
+    } else if (lang.substring(0, 2) == "zh") {
+        return chineseDialect;
+    } else if (lang.substring(0, 2) == "pt") {
+        return portugueseDialect;
+    } else if (lang.substring(0, 2) == "es") {
+        return spanishDialect;
+    } else { //use default
+        return lang;
+    }
 }
 
 //Setters and Getters
@@ -151,10 +180,54 @@ function getTranslateStatus() {
     return translateStatus;
 }
 
-function setYueStatus(status) {
-    yueStatus = status;
+function setTTSLang(lang) {
+    ttsLang = lang;
 }
 
-function getYueStatus() {
-    return yueStatus;
+function setTTSSpeed(speed) {
+    ttsSpeed = speed;
+}
+
+function getTTSLang() {
+    return ttsLang;
+}
+
+function getTTSSpeed() {
+    return ttsSpeed;
+}
+
+function setDialect(lang, dialect) {
+    if (lang == "ar") {
+        arabicDialect = dialect;
+    } else if (lang == "en") {
+        englishDialect = dialect;
+    } else if (lang == "zh") {
+        chineseDialect = dialect;
+    } else if (lang == "pt") {
+        portugueseDialect = dialect;
+    } else {
+        spanishDialect = dialect;
+    }
+}
+
+function getDialect(lang) {
+    if (lang == "ar") {
+        return arabicDialect;
+    } else if (lang == "en") {
+        return englishDialect;
+    } else if (lang == "zh") {
+        return chineseDialect;
+    } else if (lang == "pt") {
+        return portugueseDialect;
+    } else {
+        return spanishDialect;
+    }
+}
+
+function setSlowOnEven(bool) {
+    slowOnEven = bool;
+}
+
+function getSlowOnEven() {
+    return slowOnEven;
 }

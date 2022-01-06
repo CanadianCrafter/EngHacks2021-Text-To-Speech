@@ -1,0 +1,127 @@
+.saveButton {
+    background-color: white;
+    color: #2196F3;
+    border: 2px solid #2196F3;
+    border-radius: 2px;
+    transition-duration: 0.4s;
+
+    font-size: small;
+    font-weight: bold;
+}
+
+.saveButton:hover {
+    background-color: #2196F3;
+    color:white;
+}
+
+.savedButton {
+    background-color: white;
+    color: #ccc;
+    border: 2px solid #ccc;
+    border-radius: 2px;
+
+    font-size: small;
+    font-weight: bold;
+}
+
+.resetButton {
+    background-color: white;
+    color: rgb(69, 69, 69);
+    border: 2px solid rgb(69, 69, 69);
+    border-radius: 2px;
+    transition-duration: 0.4s;
+
+    font-size: small;
+    font-weight: bold;
+}
+
+.resetButton:hover {
+    background-color: rgb(69, 69, 69);
+    color:white;
+}
+
+.resettedButton {
+    background-color: white;
+    color: #ccc;
+    border: 2px solid #ccc;
+    border-radius: 2px;
+
+    font-size: small;
+    font-weight: bold;
+}
+
+#spacing {
+    padding-top:15px;
+}
+#spacing2 {
+    padding-top:30px;
+}
+
+html {
+    background-color: rgb(238, 238, 238)
+}
+
+.container {
+    width: 50%;
+    background: white;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(204, 204, 204);
+    border-radius: 5px;
+
+    position:absolute;
+    display:block;
+    top: 10%;
+    left: 25%;
+
+    box-sizing: border-box;
+    padding: 40px;
+}
+
+.banner{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.center{
+    text-align: center;
+}
+
+.section {
+    text-decoration: underline;
+}
+
+#slowOnEvenQuestionMark {
+    color: blue;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted blue; /* If you want dots under the hoverable text */
+    color: blue;
+    margin-left: 10px;
+}
+  
+  /* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 500px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    margin-left: 5px;
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

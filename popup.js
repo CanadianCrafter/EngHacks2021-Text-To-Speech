@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     var translateToggle = document.getElementById("translateToggle");
-    var yueToggle = document.getElementById("yueToggle");
     var bgpage = chrome.extension.getBackgroundPage();
 
     translateToggle.checked = bgpage.getTranslateStatus();
@@ -15,15 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    yueToggle.checked = bgpage.getYueStatus();
-
-    yueToggle.addEventListener('change', function() {
-        if (this.checked) {
-            console.log("toggle on yue");
-            bgpage.setYueStatus(true);
-        } else {
-            console.log("toggle off yue");
-            bgpage.setYueStatus(false);
-        }
+    document.getElementById("settings").addEventListener("click", function() {
+        window.open("settings.html");
     });
 });
