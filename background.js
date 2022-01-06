@@ -74,7 +74,7 @@ requirejs(["axios"], function(axios) {
 
                 //alert("detected languge: " + obj[0].language);
                 
-                speak(sampleText, applyDialect(obj[0].language));
+                speak(text, applyDialect(obj[0].language));
                
             })
             
