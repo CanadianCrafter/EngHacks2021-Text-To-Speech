@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
             resetButton.innerHTML = "Resetted!";
 
             //Reset option menu
-            updateOptionMenus("ar-EG", "en-US", "zh-CN", "pt-PT", "es-MX", "browser", 1, false);
+            updateOptionMenus("ar-EG", "en-US", "zh-CN", "pt-PT", "es-MX", "browser", 1, true);
             resetSaveButton();
         }
         
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        if (document.getElementById("slowOnEven").checked) {
+        if (!document.getElementById("slowOnEven").checked) {
             ret = false;
         }
 
