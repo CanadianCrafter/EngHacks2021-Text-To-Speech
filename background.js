@@ -13,7 +13,7 @@ var translateStatus = false;
 //System settings
 var languageSampleSize = 50; //maximum size of text sampled for language detection
 var slowSpeechRate = 0.5; //How much speech is slowed down by on even numbered clicks
-var slowOnEven = true;
+var slowOnEven = false;
 
 //System variables
 var text = "";
@@ -169,6 +169,17 @@ function applyDialect(lang) {
         return lang;
     }
 }
+
+//Stop text Text
+chrome.commands.onCommand.addListener((command) => {
+    console.log(`Command "${command}" triggered`);
+    if(command == "Stop Speech"){
+        chrome.tts.stop();
+        console.log("Speech Stopped");
+    
+    } 
+        
+});
 
 //Setters and Getters
 
