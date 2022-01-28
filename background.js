@@ -1,11 +1,10 @@
 // Add Chrome context menu
-chrome.runtime.onInstalled.addListener(function() {
-    chrome.contextMenus.create({
-        "title": 'Speak',
-        "contexts": ["selection"],
-        "id": "myid"
-    });
+chrome.contextMenus.create({
+    "title": 'Speak',
+    "contexts": ["selection"],
+    "id": "myid"
 });
+
 
 // toggles
 var translateStatus = false;
