@@ -3,8 +3,9 @@
   
     "name": "Text-to-Speech Highlighter",
 	"permissions": [
-    "contextMenus", 
-	"tts"
+        "contextMenus", 
+	    "tts",
+        "storage"
     ],
     "description": "Highlight and right click text to translate/voice!",
     "version": "2.2",
