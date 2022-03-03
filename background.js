@@ -1,5 +1,3 @@
-var initVariables = true;
-
 //local cache holds user-specific variables
 var userVariables = new Proxy({
     //toggle
@@ -29,6 +27,7 @@ var userVariables = new Proxy({
     }
 });
 
+//initialize variables on startup
 chrome.storage.sync.get(null, (items) => {
     for (const prop in items) {
         userVariables[prop] = items[prop];
