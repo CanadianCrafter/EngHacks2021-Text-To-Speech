@@ -80,7 +80,8 @@ body{
 
 
     box-sizing: border-box;
-    padding: 40px;
+    padding: 40px 40px 20px 40px;
+
 }
 
 .banner{
@@ -95,6 +96,22 @@ body{
 
 .section {
     text-decoration: underline;
+}
+
+hr.new1 {
+    border-top: 2px solid rgb(204, 204, 204);
+    width:80%;
+}
+
+.icons {
+    color: #41484c;
+    -moz-transition: color 0.35s ease-in-out;
+    -webkit-transition: color 0.35s ease-in-out;
+    -ms-transition: color 0.35s ease-in-out;
+    transition: color 0.35s ease-in-out;
+}
+.icons:hover {
+    color: #fff;
 }
 
 #slowOnEvenQuestionMark {
@@ -130,3 +147,4 @@ body{
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
