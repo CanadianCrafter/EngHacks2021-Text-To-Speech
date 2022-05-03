@@ -5,7 +5,8 @@
 	"permissions": [
         "contextMenus", 
 	    "tts",
-        "storage"
+        "storage",
+        "https://docs.google.com/*"
     ],
     "description": "Highlight and right click text to translate/voice!",
     "version": "2.3",
@@ -14,7 +15,17 @@
         "default_icon": "icon.png",
         "default_popup": "popup.html"
     },
-
+    "content_scripts": [
+        {
+          "matches": [
+            "https://docs.google.com/*"
+          ],
+          "js": [
+            "content.js"
+          ],
+          "run_at": "document_end"
+        }
+    ],
     "icons": {
         "16": "icon.png",
         "48": "icon.png",
