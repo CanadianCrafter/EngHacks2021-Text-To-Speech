@@ -53,7 +53,7 @@ requirejs(["axios"], function(axios) {
     chrome.contextMenus.onClicked.addListener((info) => {
         var text = info.selectionText;
 
-        var subscriptionKey = "618948c3ab734aa88ab09bc589375cdc";
+        var subscriptionKey = "46bf91238a6c47aba390aedb088c14e9";
         var endpoint = "https://api.cognitive.microsofttranslator.com";
         var clientTraceId = "114a8126-34ab-4439-a108-a60cfe39228c"
         var location = "global";
