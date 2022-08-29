@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
                       bgpage.getDialect("es"), 
                       "browser", 
                       bgpage.getTTSSpeed(),
-                      bgpage.getSlowOnEven());
+                      bgpage.getSlowOnEven(),
+                      bgpage.getTTSVolume());
     updateResetButton();
 
     var saved = false;
@@ -36,9 +37,14 @@ document.addEventListener('DOMContentLoaded', function() {
             bgpage.setTTSSpeed(parseFloat(ttsSpeed, 10));
 
             bgpage.setSlowOnEven(document.getElementById("slowOnEven").checked);
+
+            //update volume
+            ttsVolume = document.getElementById("ttsVolume").value;
+            bgpage.setTTSVolume(parseFloat(ttsVolume, 10));
+
             
             //update button
-            console.log("translation lang set to " + bgpage.getTTSLang() + ", tts speed set to " + bgpage.getTTSSpeed());
+            console.log("translation lang set to " + bgpage.getTTSLang() + ", tts speed set to " + bgpage.getTTSSpeed(), + ", tts volume set to " + bgpage.getTTSVolume());
             //alert("Translation language set to " + bgpage.getTTSLang() + ", speech speed set to " + bgpage.getTTSSpeed() + "x");
 
             saveToSavedButton();
@@ -72,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             resetButton.innerHTML = "Resetted!";
 
             //Reset option menu
-            updateOptionMenus("ar-EG", "en-US", "zh-CN", "pt-PT", "es-MX", "browser", 1, false);
+            updateOptionMenus("ar-EG", "en-US", "zh-CN", "pt-PT", "es-MX", "browser", 1, false, 1);
             resetSaveButton();
         }
         
@@ -120,6 +126,13 @@ document.addEventListener('DOMContentLoaded', function() {
         resetSaveButton();
         updateResetButton();
     });
+
+    //when the speed option menu is changed
+    document.getElementById("ttsVolume").addEventListener("change", function () {
+        resetSaveButton();
+        updateResetButton();
+    });
+
 
     //reset save button
     function resetSaveButton() {
@@ -187,6 +200,12 @@ document.addEventListener('DOMContentLoaded', function() {
             ret = false;
         }
 
+        Array.from(document.querySelector("#ttsVolume").options).forEach(function(option_element) {
+            if (option_element.selected && option_element.value != "1") {
+                ret = false;
+            }
+        });
+
         return ret;
     }   
 
@@ -204,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     //update the option menus
-    function updateOptionMenus(arabicDialect, englishDialect, chineseDialect, portugueseDialect, spanishDialect, lang, speed, slowOnEven) {
+    function updateOptionMenus(arabicDialect, englishDialect, chineseDialect, portugueseDialect, spanishDialect, lang, speed, slowOnEven, volume) {
         Array.from(document.querySelector("#arabicDialect").options).forEach(function(option_element) {
             var val = option_element.value;
     
@@ -262,6 +281,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         document.getElementById("slowOnEven").checked = slowOnEven;
+
+        Array.from(document.querySelector("#ttsVolume").options).forEach(function(option_element) {
+            var val = option_element.value;
+    
+            if (val == volume) {
+                option_element.selected = true;
+            }
+        });
+
+
     }
 });
 

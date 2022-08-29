@@ -16,7 +16,8 @@ var userVariables = new Proxy({
 
     //speech settings
     ttsSpeed: 1,
-    slowOnEven: false
+    slowOnEven: false,
+    ttsVolume: 1
 }, 
 {
     set(obj, prop, val) {
@@ -148,6 +149,7 @@ requirejs(["axios"], function(axios) {
 
 //Speaks the text in the language and speed required.
 function speak(text, lang){
+    resume();
     if (userVariables.slowOnEven) {
         if (text == prevText) {
             isRepeat = !isRepeat;
@@ -155,25 +157,26 @@ function speak(text, lang){
             isRepeat = false;
         }
     
-        //alert("speaking in lang " + lang + " and speed " + ttsSpeed);
+        //alert("speaking in lang " + lang + " and speed " + ttsSpeed + " and volume " + volume);
         if (isRepeat) {
-            chrome.tts.speak(text, {'lang': lang, 'rate': userVariables.ttsSpeed*slowSpeechRate});
+            chrome.tts.speak(text, {'lang': lang, 'rate': userVariables.ttsSpeed*slowSpeechRate, 'volume': userVariables.ttsVolume});
         } else {
-            chrome.tts.speak(text, {'lang': lang, 'rate': userVariables.ttsSpeed});
+            chrome.tts.speak(text, {'lang': lang, 'rate': userVariables.ttsSpeed, 'volume': userVariables.ttsVolume});
         }
     } else {
         isRepeat = false;
-        chrome.tts.speak(text, {'lang': lang, 'rate': userVariables.ttsSpeed});
+        chrome.tts.speak(text, {'lang': lang, 'rate': userVariables.ttsSpeed, 'volume': userVariables.ttsVolume});
     }
     
     prevText = text;
-    isPaused = false;
 
     //logs
-    console.log(text);
-    console.log(lang);
-    console.log(isRepeat?"Slow":"Normal");
-    console.log(userVariables.translateStatus?"Translate ON":"Translate OFF");
+    console.log("Text: " + text);
+    console.log("Language: " + lang);
+    console.log("Speed: " + userVariables.ttsSpeed);
+    console.log("Volume: " + userVariables.ttsVolume);
+    console.log("Translate Toggle: " + (userVariables.translateStatus?"Translate ON":"Translate OFF"));
+    console.log("Is a Repeat: " + (isRepeat? "Is a Repeat":"Normal"));
     console.log("------------------");
     
 }
@@ -197,17 +200,13 @@ function applyDialect(lang) {
 //Pauses text to speech
 chrome.commands.onCommand.addListener((command) => {
     console.log(`Command "${command}" triggered`);
-    if(command == "Stop Speech"){
+    if(command == "Pause Speech"){
         chrome.tts.isSpeaking(function(isSpeaking){
             if(isSpeaking && !isPaused){
-                chrome.tts.pause();
-                isPaused = true;
-                console.log("Speech Paused");
+                pause();
             }
             else{
-                chrome.tts.resume();
-                isPaused = false;
-                console.log("Speech Resumed");
+                resume();
             }
 
         });        
@@ -215,6 +214,18 @@ chrome.commands.onCommand.addListener((command) => {
     } 
         
 });
+
+function pause() {
+    chrome.tts.pause();
+    isPaused = true;
+    console.log("Speech Paused");
+}
+
+function resume() {
+    chrome.tts.resume();
+    isPaused = false;
+    console.log("Speech Resumed");
+}
 
 //Setters and Getters
 
@@ -230,16 +241,32 @@ function setTTSLang(lang) {
     userVariables.ttsLang = lang;
 }
 
-function setTTSSpeed(speed) {
-    userVariables.ttsSpeed = speed;
-}
-
 function getTTSLang() {
     return userVariables.ttsLang;
 }
 
+function setTTSSpeed(speed) {
+    userVariables.ttsSpeed = speed;
+}
+
 function getTTSSpeed() {
     return userVariables.ttsSpeed;
+}
+
+function setSlowOnEven(bool) {
+    userVariables.slowOnEven = bool;
+}
+
+function getSlowOnEven() {
+    return userVariables.slowOnEven;
+}
+
+function setTTSVolume(volume) {
+    userVariables.ttsVolume = volume;
+}
+
+function getTTSVolume() {
+    return userVariables.ttsVolume;
 }
 
 function setDialect(lang, dialect) {
@@ -270,10 +297,3 @@ function getDialect(lang) {
     }
 }
 
-function setSlowOnEven(bool) {
-    userVariables.slowOnEven = bool;
-}
-
-function getSlowOnEven() {
-    return userVariables.slowOnEven;
-}

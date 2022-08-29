@@ -37,12 +37,26 @@
     },
 
     "commands": {
-        "Stop Speech": {
+        "Pause Speech": {
             "suggested_key": {
                 "default": "Alt+P",
                 "mac": "Command+P"
               },
             "description": "Pauses Speech"
+        },
+        "Skip Forward": {
+            "suggested_key": {
+                "default": "Alt+Shift+Left",
+                "mac": "Command+Shift+Left"
+              },
+            "description": "Skips Forward"
+        },
+        "Skip Back": {
+            "suggested_key": {
+                "default": "Alt+Shift+Right",
+                "mac": "Command+Shift+Right"
+              },
+            "description": "Skips Back"
         }
     }
 
