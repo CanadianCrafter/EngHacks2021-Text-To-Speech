@@ -9,7 +9,7 @@
         "https://docs.google.com/*"
     ],
     "description": "Highlight and right click text to translate/voice!",
-    "version": "2.3",
+    "version": "2.4",
   
     "browser_action": {
         "default_icon": "icon.png",
@@ -42,7 +42,7 @@
                 "default": "Alt+P",
                 "mac": "Command+P"
               },
-            "description": "Stops Speech"
+            "description": "Pauses Speech"
         }
     }
 

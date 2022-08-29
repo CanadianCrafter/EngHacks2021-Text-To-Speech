@@ -49,11 +49,14 @@ var slowSpeechRate = 0.5; //How much speech is slowed down by on even numbered c
 var prevText = "";
 var isRepeat = false;
 
+//For Pause command
+var isPaused = false;
+
 requirejs(["axios"], function(axios) {
     chrome.contextMenus.onClicked.addListener((info) => {
         var text = info.selectionText;
 
-        var subscriptionKey = "618948c3ab734aa88ab09bc589375cdc";
+        var subscriptionKey = "46bf91238a6c47aba390aedb088c14e9";
         var endpoint = "https://api.cognitive.microsofttranslator.com";
         var clientTraceId = "114a8126-34ab-4439-a108-a60cfe39228c"
         var location = "global";
@@ -142,6 +145,7 @@ requirejs(["axios"], function(axios) {
     });
 });
 
+
 //Speaks the text in the language and speed required.
 function speak(text, lang){
     if (userVariables.slowOnEven) {
@@ -163,6 +167,7 @@ function speak(text, lang){
     }
     
     prevText = text;
+    isPaused = false;
 
     //logs
     console.log(text);
@@ -189,12 +194,23 @@ function applyDialect(lang) {
     }
 }
 
-//Stop text Text
+//Pauses text to speech
 chrome.commands.onCommand.addListener((command) => {
     console.log(`Command "${command}" triggered`);
     if(command == "Stop Speech"){
-        chrome.tts.stop();
-        console.log("Speech Stopped");
+        chrome.tts.isSpeaking(function(isSpeaking){
+            if(isSpeaking && !isPaused){
+                chrome.tts.pause();
+                isPaused = true;
+                console.log("Speech Paused");
+            }
+            else{
+                chrome.tts.resume();
+                isPaused = false;
+                console.log("Speech Resumed");
+            }
+
+        });        
     
     } 
         
