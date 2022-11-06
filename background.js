@@ -60,7 +60,7 @@ requirejs(["axios"], function(axios) {
         // var subscriptionKey = "46bf91238a6c47aba390aedb088c14e9";
         var subscriptionKey = "cbd392705a8a44e9a1c4d8901158c485";
         var endpoint = "https://api.cognitive.microsofttranslator.com";
-        var clientTraceId = "114a8126-34ab-4439-a108-a60cfe39228c"
+        var clientTraceId = "d4625eaa-4343-45ac-85ec-cb4840a112b1"
         var location = "global";
     
         
@@ -197,6 +197,37 @@ function applyDialect(lang) {
         return lang;
     }
 }
+
+//Pauses text to speech
+chrome.commands.onCommand.addListener((command) => {
+    console.log(`Command "${command}" triggered`);
+    if(command == "Pause Speech"){
+        chrome.tts.isSpeaking(function(isSpeaking){
+            if(isSpeaking && !isPaused){
+                pause();
+            }
+            else{
+                resume();
+            }
+
+        });        
+    
+    } 
+        
+});
+
+function pause() {
+    chrome.tts.pause();
+    isPaused = true;
+    console.log("Speech Paused");
+}
+
+function resume() {
+    chrome.tts.resume();
+    isPaused = false;
+    console.log("Speech Resumed");
+}
+
 
 //Pauses text to speech
 chrome.commands.onCommand.addListener((command) => {
