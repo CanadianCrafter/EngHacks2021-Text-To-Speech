@@ -54,7 +54,7 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
 
     //Voice text in the language it is in
     if (!userVariables.translateStatus) {            
-        let response = await fetch('http://ttsh-api.cwddc5h2h3ajh7gc.eastus.azurecontainer.io:3000/api/detect', {
+        let response = await fetch('http://20.242.160.43:3000/api/detect', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({text: text})
@@ -81,7 +81,7 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
             }
         }
         
-        let response = await fetch('http://ttsh-api.cwddc5h2h3ajh7gc.eastus.azurecontainer.io:3000/api/translate', {
+        let response = await fetch('http://20.242.160.43:3000/api/translate', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({text: text, lang: transLang})
