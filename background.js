@@ -49,98 +49,50 @@ var slowSpeechRate = 0.5; //How much speech is slowed down by on even numbered c
 var prevText = "";
 var isRepeat = false;
 
-requirejs(["axios"], function(axios) {
-    chrome.contextMenus.onClicked.addListener((info) => {
-        var text = info.selectionText;
+chrome.contextMenus.onClicked.addListener(async (info) => {
+    var text = info.selectionText;
 
-        // var subscriptionKey = "46bf91238a6c47aba390aedb088c14e9";
-        var subscriptionKey = "cbd392705a8a44e9a1c4d8901158c485";
-        var endpoint = "https://api.cognitive.microsofttranslator.com";
-        var clientTraceId = "114a8126-34ab-4439-a108-a60cfe39228c"
-        var location = "global";
-    
+    //Voice text in the language it is in
+    if (!userVariables.translateStatus) {            
+        let response = await fetch('http://20.242.160.43:3000/api/detect', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({text: text})
+        });
+
+        if (response.ok) {
+            speak(text, applyDialect((await response.json()).lang));
+        } else {
+            alert("An error occurred. Please contact developers.");
+        }
+    } else { //translate before speech
+        //for the most part, transLang from Azure is the first 2 characters of ttsLang from Chrome TTS.
+        //exceptions to this rule are handled below
+        var transLang = userVariables.ttsLang;
+        if (!userVariables.ttsLang.includes("pt")) { //portuguese is an exception
+            transLang = userVariables.ttsLang.substring(0, 2);
+
+            if (transLang == "zh") { //chinese is an exception
+                transLang = "zh-Hans";
+            } else if (transLang == "no") { //norwegian is an exception
+                transLang = "nb";
+            } else if (transLang == "sr") { //serbian is an exception
+                transLang = "sr-Latn";
+            }
+        }
         
-        //Voice text in the language it is in
-        if (!userVariables.translateStatus) {            
-            //gets sample text for language detection
-            var sampleText = text;
-            if(text.length > languageSampleSize){
-                sampleText = text.substring(0, languageSampleSize);
-            }
+        let response = await fetch('http://20.242.160.43:3000/api/translate', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({text: text, lang: transLang})
+        });
 
-            //detect current language
-            axios({
-                baseURL: endpoint,
-                url: '/detect',
-                method: 'post',
-                headers: {
-                    'Ocp-Apim-Subscription-Key': subscriptionKey,
-                    'Ocp-Apim-Subscription-Region': location,
-                    'Content-type': 'application/json',
-                    'X-ClientTraceId': clientTraceId
-                },
-                params: {
-                    'api-version': '3.0'
-                },
-                data: [{
-                    'text': sampleText
-                }],
-                responseType: 'json'
-            }).then(function(response){
-                
-                var results = JSON.stringify(response.data, null, 4);
-                var obj = JSON.parse(results);
-                //lang = obj[0].language.substring(0,2); //takes the first two characters of the language id                
-
-                //alert("detected languge: " + obj[0].language);
-                
-                speak(text, applyDialect(obj[0].language));
-               
-            })
-            
-            
-        } else { //translate before speech
-            //for the most part, transLang from Azure is the first 2 characters of ttsLang from Chrome TTS.
-            //exceptions to this rule are handled below
-            var transLang = userVariables.ttsLang;
-            if (!userVariables.ttsLang.includes("pt")) { //portuguese is an exception
-                transLang = userVariables.ttsLang.substring(0, 2);
-
-                if (transLang == "zh") { //chinese is an exception
-                    transLang = "zh-Hans";
-                } else if (transLang == "no") { //norwegian is an exception
-                    transLang = "nb";
-                } else if (transLang == "sr") { //serbian is an exception
-                    transLang = "sr-Latn";
-                }
-            }
-            
-            axios({
-                baseURL: endpoint,
-                url: '/translate',
-                method: 'post',
-                headers: {
-                    'Ocp-Apim-Subscription-Key': subscriptionKey,
-                    'Ocp-Apim-Subscription-Region': location,
-                    'Content-type': 'application/json',
-                    'X-ClientTraceId': clientTraceId
-                },
-                params: {
-                    'api-version': '3.0',
-                    'to': transLang
-                },
-                data: [{
-                    'text': text
-                }],
-                responseType: 'json'
-
-            }).then(function(response){
-                var translatedText = response.data[0]["translations"][0]["text"];
-                //alert("translated: " + translatedText);
-                speak(translatedText, userVariables.ttsLang);
-            })
-        }  
-    });
+        if (response.ok) {
+            speak((await response.json()).translation, userVariables.ttsLang);
+        } else {
+            alert("An error occurred. Please contact developers.");
+        }
+    }  
 });
 
 //Speaks the text in the language and speed required.
