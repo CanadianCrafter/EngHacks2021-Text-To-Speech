@@ -229,35 +229,6 @@ function resume() {
 }
 
 
-//Pauses text to speech
-chrome.commands.onCommand.addListener((command) => {
-    console.log(`Command "${command}" triggered`);
-    if(command == "Pause Speech"){
-        chrome.tts.isSpeaking(function(isSpeaking){
-            if(isSpeaking && !isPaused){
-                pause();
-            }
-            else{
-                resume();
-            }
-
-        });        
-    
-    } 
-        
-});
-
-function pause() {
-    chrome.tts.pause();
-    isPaused = true;
-    console.log("Speech Paused");
-}
-
-function resume() {
-    chrome.tts.resume();
-    isPaused = false;
-    console.log("Speech Resumed");
-}
 
 //Setters and Getters
 
